@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Ticket_Management.Constants;
 using Ticket_Management.DBContext;
-using Ticket_Management.Entity;
 using Ticket_Management.Entity.Model;
+using Ticket_Management.Entity.Request;
+using Ticket_Management.Repositories.IRepositories;
 
 namespace Ticket_Management.Repositories
 {
@@ -88,27 +89,34 @@ namespace Ticket_Management.Repositories
             return await query.OrderByDescending(t => t.CreatedAt).ToListAsync();
         }
 
-        public async Task<string> UpdateAsync(TicketRequest ticketRequest)
+        public async Task<string> UpdateAsync(TicketRequest ticketRequest, string userRole)
         {
+
             if (ticketRequest == null || ticketRequest.Id <= 0)
                 return "Mismatched ticket id.";
 
             Ticket? existing = await GetByIdAsync(ticketRequest.Id);
             if(existing == null)
             return "Not Found";
+            if (ticketRequest.StatusCode != null)
+            {
+                if (userRole != "Admin")
+                    return "Unauthorized: Only admins can change the status.";
 
-            string status = TicketStatusCodes.MapToStatus(ticketRequest.StatusCode);
-            if (status == null)
-                return "Invalid status code.";
+                string status = TicketStatusCodes.MapToStatus(ticketRequest.StatusCode);
+                if (status == null)
+                    return "Invalid status code.";
+
+                existing.Status = status;
+            }
+
             existing.Title = ticketRequest.Title;
             existing.Description = ticketRequest.Description;
-            existing.Status = status;
             existing.UpdatedAt = DateTime.UtcNow;
             existing.AssignTo = ticketRequest.AssignTo;
 
             appDbContext.Tickets.Update(existing);
             await appDbContext.SaveChangesAsync();
-
             return "Updated Successfully";
         }
     }

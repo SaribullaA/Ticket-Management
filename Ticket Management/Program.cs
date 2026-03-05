@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Ticket_Management.DBContext;
 using Ticket_Management.Repositories;
+using Ticket_Management.Repositories.IRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

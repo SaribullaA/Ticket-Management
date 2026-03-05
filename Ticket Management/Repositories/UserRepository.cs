@@ -5,9 +5,10 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using Ticket_Management.DBContext;
-using Ticket_Management.Entity;
 using Ticket_Management.Entity.Model;
+using Ticket_Management.Entity.Request;
 using Ticket_Management.PlatformException;
+using Ticket_Management.Repositories.IRepositories;
 using Ticket_Management.Utility;
 
 namespace Ticket_Management.Repositories

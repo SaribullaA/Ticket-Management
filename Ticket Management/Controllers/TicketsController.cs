@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Ticket_Management.Entity;
+using System.Security.Claims;
 using Ticket_Management.Entity.Model;
-using Ticket_Management.Repositories;
+using Ticket_Management.Entity.Request;
+using Ticket_Management.Repositories.IRepositories;
 
 namespace Ticket_Management.Controllers
 {
-    [Authorize] // 🔐 All APIs require JWT by default
+    [Authorize] // All APIs require JWT by default
     [Route("api/[controller]")]
     [ApiController]
     public class TicketsController : ControllerBase
@@ -27,8 +28,10 @@ namespace Ticket_Management.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] TicketRequest ticketRequest)
         {
+
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            string updated = await _repository.UpdateAsync(ticketRequest);
+            string userRole = User.FindFirstValue(ClaimTypes.Role) ?? string.Empty;
+            string updated = await _repository.UpdateAsync(ticketRequest, userRole);
             return Ok(updated);
         }
         [HttpGet]

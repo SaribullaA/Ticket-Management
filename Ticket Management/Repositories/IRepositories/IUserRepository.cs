@@ -1,8 +1,7 @@
-﻿
-using Ticket_Management.Entity;
-using Ticket_Management.Entity.Model;
+﻿using Ticket_Management.Entity.Model;
+using Ticket_Management.Entity.Request;
 
-namespace Ticket_Management.Repositories
+namespace Ticket_Management.Repositories.IRepositories
 {
     public interface IUserRepository
     {

@@ -1,4 +1,4 @@
-﻿namespace Ticket_Management.Entity
+﻿namespace Ticket_Management.Entity.Request
 {
     public class TicketRequest
     {

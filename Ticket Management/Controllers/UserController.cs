@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 
 using Microsoft.AspNetCore.Mvc;
-using Ticket_Management.Entity;
 using Ticket_Management.Entity.Model;
-using Ticket_Management.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Ticket_Management.Repositories.IRepositories;
+using Ticket_Management.Entity.Request;
 
 namespace Ticket_Management.Controllers
 {
-    [Authorize] // 🔐 All APIs require JWT by default
+    [Authorize] // All APIs require JWT by default
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
