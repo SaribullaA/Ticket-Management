@@ -11,6 +11,8 @@ namespace Ticket_Management.DBContext
         }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<User> Users { get; set; }
+       
+      
         
 
     }
