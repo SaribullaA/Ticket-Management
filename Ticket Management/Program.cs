@@ -93,7 +93,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // ================= Repositories =================
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
